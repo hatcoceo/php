@@ -1,6 +1,10 @@
-function cong($a, $b)
-{
-	$t = $a + $b;
-	echo $t;
-
+global connect;
+$connect=;
+function create(){
+}
+function read(){
+}
+function update(){
+}
+function delete(){
 }
