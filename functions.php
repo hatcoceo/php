@@ -28,4 +28,10 @@ function get_id_post(){
 function get_id_categories(){
 
 }
+
+function get_id_title(){
+
+}
+function get_id_user(){
+}
  ?>
