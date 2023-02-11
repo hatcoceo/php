@@ -7,9 +7,8 @@ global $connect;
 
 $connect = mysqli_connect('localhost', 'id18044425_vinthink1', '241432679vV!', 'id18044425_vinthink');
 
-function qr(){
-  global $connect;
-  mysqli_query($connect, $sql);
+function qr($sql){
+
 }
 
 function create(){
