@@ -57,15 +57,15 @@ while ($f_a = mysqli_fetch_array($qr)) {
 }
 
 }
-function show_column(){
+function show_column($table){
 // Lấy tên các cột trong bảng
 global $connect ;
-$result = mysqli_query($connect, "DESCRIBE chat");
+$qr = mysqli_query($connect, "DESCRIBE $table");
 
 
 // In tên các cột
-while ($row = mysqli_fetch_array($result)) {
-    echo $row['Field'] . "<br>";
+while ($f_a = mysqli_fetch_array($qr)) {
+    echo $f_a['Field'] . "<br>";
 }
 }
 
@@ -77,11 +77,11 @@ function get_row_relations_table($column, $table, $join, $on, $where){
         echo $f_a['name'].'<br>';
     }
 } 
-function create_table($table){
+function create_table($table, $column ){
     global $connect ;
 $sql = "CREATE TABLE $table (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    $ VARCHAR(255) NOT NULL
 )";
 $qr = mysqli_query($connect, $sql);
 if($qr){
@@ -95,5 +95,116 @@ function current_url(){
 $currentUrl = (isset ($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 echo $currentUrl;
 }
+
+function create_form($button_name, $input_name){
+    echo '<form action ="" method ="POST">
+    <input type ="text" name ="'.$input_name.'">
+    <button type ="submit" name ="'.$button_name.'">gửi</button>
+    </form>';
+    // mã dưới là tải lại trang tự động sau 5 giây.
+//header("Refresh:5");
+}
+
+function form_foreach(){
+$fields = array(
+    "username" => "Tên đăng nhập",
+    "password" => "Mật khẩu",
+    "confirm_password" => "Xác nhận mật khẩu",
+    "email" => "Địa chỉ email",
+    "phone" => "Số điện thoại",
+    "vinh" => "anh vinh"
+);
+
+
+
+
  ?>
+<form method="post" action="submit.php">
+    <?php foreach ($fields as $key => $value): ?>
+        <div>
+            <label for="<?php echo $key; ?>"><?php echo $value; ?>:</label>
+            <input type="<?php echo $key == 'password' || $key == 'confirm_password' ? 'password' : 'text'; ?>" 
+                id="<?php echo $key; ?>" name="<?php echo $key; ?>" />
+        </div>
+    <?php endforeach; ?>
+    <button type="submit">Đăng ký</button>
+</form>
+
+ </div>
+ 
+<?php }
+function create_table_UI(){?>
+<table border=1>
+  <?php
+    // Định nghĩa số hàng và số cột của bảng
+    $num_rows = 5;
+    $num_cols = 3;
+    
+    // Vòng lặp tạo hàng của bảng
+    for ($i = 1; $i <= $num_rows; $i++) {
+      echo "<tr>";
+      
+      // Vòng lặp tạo cột của bảng
+      for ($j = 1; $j <= $num_cols; $j++) {
+        echo "<td>" . $i . "-" . $j . "</td>";
+      }
+      
+      echo "</tr>";
+    } ?>
+</table>
+
+<?php }
+
+
+function vn_str_filter ($str){
+        $unicode = array(
+            'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ',
+            'd'=>'đ',
+            'e'=>'é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ',
+            'i'=>'í|ì|ỉ|ĩ|ị',
+            'o'=>'ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ',
+            'u'=>'ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự',
+            'y'=>'ý|ỳ|ỷ|ỹ|ỵ',
+			'A'=>'Á|À|Ả|Ã|Ạ|Ă|Ắ|Ặ|Ằ|Ẳ|Ẵ|Â|Ấ|Ầ|Ẩ|Ẫ|Ậ',
+            'D'=>'Đ',
+            'E'=>'É|È|Ẻ|Ẽ|Ẹ|Ê|Ế|Ề|Ể|Ễ|Ệ',
+            'I'=>'Í|Ì|Ỉ|Ĩ|Ị',
+            'O'=>'Ó|Ò|Ỏ|Õ|Ọ|Ô|Ố|Ồ|Ổ|Ỗ|Ộ|Ơ|Ớ|Ờ|Ở|Ỡ|Ợ',
+            'U'=>'Ú|Ù|Ủ|Ũ|Ụ|Ư|Ứ|Ừ|Ử|Ữ|Ự',
+            'Y'=>'Ý|Ỳ|Ỷ|Ỹ|Ỵ',
+        );
+        
+       foreach($unicode as $nonUnicode=>$uni){
+            $str = preg_replace("/($uni)/i", $nonUnicode, $str);
+       }
+		return $str;
+    }
+
+function translate_en_to_vi($text) {
+   $en_to_vi = array(
+      "hello" => "xin chào",
+      "how are you" => "bạn có khỏe không",
+      "goodbye" => "tạm biệt", 
+      "buổi sáng" => "uống cà phê"
+   );
+   $translated_text = $en_to_vi[$text];
+   return $translated_text;
+}
+
+
+
+function loadJSON($url) {
+    $response = file_get_contents($url);
+    $data = json_decode($response, true);
+    return $data;
+}
+
+// Sử dụng hàm để lấy dữ liệu JSON từ đường dẫn "example.json"
+//$data = loadJSON("example.json");
+
+// In ra dữ liệu JSON
+//print_r($data);
+?>
+
+ 
 
