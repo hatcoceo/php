@@ -77,11 +77,11 @@ function get_row_relations_table($column, $table, $join, $on, $where){
         echo $f_a['name'].'<br>';
     }
 } 
-function create_table($table, $column ){
+function create_table($table ){
     global $connect ;
 $sql = "CREATE TABLE $table (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    $ VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL
 )";
 $qr = mysqli_query($connect, $sql);
 if($qr){
