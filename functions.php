@@ -156,7 +156,7 @@ function create_table_UI(){?>
 <?php }
 
 
-function vn_str_filter ($str){
+function remove_dau_tieng_viet ($str){
         $unicode = array(
             'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ',
             'd'=>'đ',
