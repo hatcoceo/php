@@ -22,6 +22,12 @@ function get_post_value($name){
     }
 }
 
+$userTable =[
+       'username' => $username , 
+       'password' => $password 
+    ] ;
+   
+
 
 function insert ($table, $userTable){
     global $connect ;
