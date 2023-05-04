@@ -22,6 +22,25 @@ function get_post_value($name){
     }
 }
 
+
+function insert ($table, $userTable){
+    global $connect ;
+   
+
+$intoUser = implode(",",array_keys ($userTable));
+ 
+$valueUser = implode ("', '", array_values ($userTable));
+ $sql = "INSERT INTO $table($intoUser) VALUES ('$valueUser') ";
+    
+    $qr = mysqli_query ($connect, $sql);
+   if($qr){
+       echo "lưu thành công";
+   }else {
+       echo "chưa lưu được ".mysqli_error($connect );
+   }
+   mysqli_close($connect);
+}
+
   // Function to get the columns of a table in a database
   
 function get_columns($table) {
