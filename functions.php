@@ -1,6 +1,4 @@
-<?php    
 
-global $connect ;
 
 $connect = mysqli_connect('localhost', 'id18044425_vinthink1', '241432679vV!', 'id18044425_vinthink');
 
@@ -29,8 +27,8 @@ $userTable =[
    
 
 
-function insert ($table, $userTable){
-    global $connect ;
+function insert ($table, $userTable, $connect ){
+   
    
 
 $intoUser = implode(",",array_keys ($userTable));
@@ -49,9 +47,9 @@ $valueUser = implode ("', '", array_values ($userTable));
 
   // Function to get the columns of a table in a database
   
-function get_columns($table) {
+function get_columns($table, $connect ) {
     // Code to connect to the database
-   global $connect ;
+   
 
     // Get the columns of the table
     $sql = "SHOW COLUMNS FROM $table";
