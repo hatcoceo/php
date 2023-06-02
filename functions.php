@@ -88,4 +88,26 @@ function createCategory($connect, $categoryTable){
        }
        return $datas;
    }
+
+function limitWords($title, $limit) {
+  $words = explode(' ', $title); // Tách tiêu đề thành các từ
+  $wordCount = count($words); // Đếm số từ
+
+  if ($wordCount > $limit) {
+    $limitedWords = array_slice($words, 0, $limit); // Lấy $limit từ đầu tiên
+    $limitedTitle = implode(' ', $limitedWords); // Kết hợp các từ lại với nhau
+    return $limitedTitle . '...'; // Thêm dấu chấm ba chấm vào cuối
+  }
+
+  return $title; // Trả về tiêu đề gốc nếu không cần giới hạn
+}
+
+
+function formatlink($notes) {
+    $pattern = '/(https?:\/\/[^\s]+)/i'; 
+
+    $formatLink = preg_replace($pattern, '<a href="$1">$1</a>', $notes);
+    
+    return $formatLink;
+}
 ?> 
