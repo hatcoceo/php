@@ -110,4 +110,14 @@ function formatlink($notes) {
     
     return $formatLink;
 }
+
+// kỹ thuật unpacking
+function add($a, $b, $c) {
+    return $a + $b + $c;
+}
+
+$values = [2, 3, 5, 7];
+$result = add(...$values);
+echo $result;  // Output: 10
+
 ?> 
