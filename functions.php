@@ -52,7 +52,7 @@ print_r($a);
          if(in_array($category, $checkedCategory)){
              return "checked";
          }
-         //return '';
+         
      }
      return '';
  }
