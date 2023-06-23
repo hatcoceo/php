@@ -1,93 +1,19 @@
-<?php 
-// require_once 'db.php'; 
+<?php   
 
-/*
-$qr = function ($connect, $sql) {
-    return mysqli_query($connect, $sql);
-};
-
-function insert($connect, $table) {
-    $into = implode(",", array_keys($table));
-    $value = implode("','", array_values($table));
-    
-    $sql = "INSERT INTO $table($into) VALUES ('$value')";
-    
-    $qr($connect, $sql);
-    // Hoặc bạn có thể gán kết quả vào biến khác:
-    // $result = $qr($connect, $sql);
-}
-*/
-
-function insert ($connect, $table ){
-    
-    $into = implode (",", array_keys ($table));
-    $value = implode ("','", array_values($table));
-    
-    $sql = "INSERT INTO $table($into ) VALUES ('$value')";
-    
-    
-   $qr = mysqli_query($connect, $sql);
-}
-
-function allPost($connect, $order = 'DESC'){
-     $sql = "SELECT * FROM tittle ORDER BY tittle_id  $order ";
-     $qr = mysqli_query($connect, $sql);
-     $datas =[];
-     while ($f_a =mysqli_fetch_array($qr)){
-      $datas[] =$f_a;
-      
-       }
-
-      return $datas;
-}
-
-function createPost($connect, $tieude, $mota){
-    $sql = "INSERT INTO tittle (tieude, mota) VALUE ('$tieude', '$mota')";
-    $qr = mysqli_query($connect, $sql);
-}
-function postDetail($connect, $where){
-    $sql = "SELECT * FROM tittle WHERE tittle_id = '$where'";
-    $qr = mysqli_query($connect, $sql);
-    $datas =[];
-    while ($f_a = mysqli_fetch_array($qr)){
-        $datas[] = $f_a;
+function geturlvalue($name){
+  if(isset ($_GET[$name])){
+       $name =  $_GET[$name];
+       return $name;
     }
-    return $datas;
-}
-
-function deletePost($connect, $where){
-    $sql = "DELETE FROM tittle WHERE tittle_id = '$where'";
-    
-    $qr = mysqli_query($connect, $sql);
-}
-function updatePost($connect, $where, $tieude, $mota ){
-    $sql = " UPDATE tittle SET tieude = '$tieude', mota = '$mota' WHERE tittle_id = '$where' ";
-    $qr = mysqli_query($connect, $sql);
-    
-}
-function createCategory($connect, $categoryTable){
-    $into = implode (",", array_keys($categoryTable));
-    $value = implode ("','",array_values($categoryTable));
-    $sql = "INSERT INTO category ($into) VALUES ('$value')";
-    $qr = mysqli_query($connect, $sql);
-}
-
-   function allCategory($connect, $where =null ){
-       $sql = "SELECT * FROM category ";
-   //$qr = mysqli_query($connect, $sql);
-       
       
-       if($where){
-          $sql .= "WHERE category_id = '$where' ";
-       }
-     $qr = mysqli_query($connect, $sql);
-       
-       $datas =[];
-        while ($f_a = mysqli_fetch_array ($qr)){
-           $datas[] = $f_a ;
-       }
-       return $datas;
-   }
+}
+function getPostvalue($name){
+    if (isset($_POST[$name])){
+        $name = $_POST[$name];
+        return $name;
+    }
+
+}
 
 function limitWords($title, $limit) {
   $words = explode(' ', $title); // Tách tiêu đề thành các từ
@@ -110,14 +36,29 @@ function formatlink($notes) {
     
     return $formatLink;
 }
-
-// kỹ thuật unpacking
-function add($a, $b, $c) {
-    return $a + $b + $c;
+function showExtension(){
+print_r (get_loaded_extensions());
+ 
 }
+// show function extension 
+function showFunEx($ex){
 
-$values = [2, 3, 5, 7];
-$result = add(...$values);
-echo $result;  // Output: 10
+$a =get_extension_funcs($ex);
+print_r($a);
+}
+/*
+ function checkedCategory($allCategory =[], $checkedCategory = []){
+     foreach ($allCategory as $category ){
+         if(in_array($category, $checkedCategory)){
+             return "checked";
+         }
+         //return '';
+     }
+     return '';
+ }
+*/
+function isChecked($category, $checked) {
+    return in_array($category, $checked) ? 'checked' : '';
+}
 
 ?> 
